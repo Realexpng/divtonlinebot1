@@ -88,6 +88,7 @@
             <input type="text" placeholder="Ім'я, Прізвище" id="user_name">
             <input type="text" placeholder="Курс" id="user_kurs">
             <input type="text" placeholder="Спеціалізація" id="user_spec">
+            <input type="text" placeholder="Форма навчання: Денна/Заочна" id="user_forma">
             <input type="text" placeholder="Телефон" id="user_phone">
         <div id="error"></div>
             <button id="order">Замовити</button>
@@ -111,6 +112,7 @@
             let name = document.getElementById("user_name").value;
             let kurs = document.getElementById("user_kurs").value;
             let spec = document.getElementById("user_spec").value;
+            let forma = document.getElementById("user_forma").value;
             let phone = document.getElementById("user_phone").value;
             if(name.length < 5) {
                 document.getElementById("error").innerText = 'Помилка в імені';
@@ -124,6 +126,10 @@
                 document.getElementById("error").innerText = 'Помилка в назві спеціалізації';
                 return;
             }
+            if(forma.length < 5) {
+                document.getElementById("error").innerText = 'Помилка в формі навчання';
+                return;
+            }
             if(phone.length < 10) {
                 document.getElementById("error").innerText = 'Помилка в номері телефону';
                 return;
@@ -133,6 +139,7 @@
                 name: name,
                 kurs: kurs,
                 spec: spec,
+                forma: forma,
                 phone: phone
             }
             tg.sendData(JSON.stringify(data));
