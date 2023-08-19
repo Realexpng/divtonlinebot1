@@ -88,6 +88,7 @@
             <input type="text" placeholder="Курс" id="user_kurs">
             <input type="text" placeholder="Спеціалізація" id="user_spec">
             <input type="text" placeholder="Телефон" id="user_phone">
+        <div id="error"></div>
             <button id="order">Замовити</button>
     </form>
     <script src="https://telegram.org/js/telegram-web-app.js"> </script>
@@ -95,6 +96,7 @@
         let tg = window.Telegram.WebApp;
         let buy = document.getElementById("buy");
         let order = document.getElementById("order");
+        tg.expand();
 
         buy.addEventListener("click", () => {
             document.getElementById("main").style.display = "none";
@@ -103,6 +105,36 @@
         });
 
         order.addEventListener("click", () => {
+            document.getElementById("error").innerText = '';
+            let name = document.getElementById("user_name").value;
+            let kurs = document.getElementById("user_kurs").value;
+            let spec = document.getElementById("user_spec").value;
+            let phone = document.getElementById("user_phone").value;
+            if(name.length < 5) {
+                document.getElementById("error").innerText = 'Помилка в імені';
+                return;
+            }
+            if(kurs.length < 5) {
+                document.getElementById("error").innerText = 'Помилка в номері курсу';
+                return;
+            }
+            if(spec.length < 5) {
+                document.getElementById("error").innerText = 'Помилка в назві спеціалізації';
+                return;
+            }
+            if(phone.length < 5) {
+                document.getElementById("error").innerText = 'Помилка в номері телефону';
+                return;
+            }
+
+            let data = {
+                name: name,
+                kurs: kurs,
+                spec: spec,
+                phone: phone
+            }
+            tg.sendData(JSON.stringify(data));
+
             tg.close();
         });
     </script>
