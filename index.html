@@ -5,6 +5,7 @@
     <meta name="trevingbook"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Treningbook</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat;wght@200;500&display=swap');
@@ -80,8 +81,8 @@
     <div id="main">
       <h1>Замовлення Тренінг-буку</h1>
       <img src="https://i.ibb.co/X5CfGdt/2.png">
-      <p>Для замовлення Тренінг-буку натисни кнопку "Замовити"</p>
-      <button id="buy">Замовити</button>
+      <p>Для замовлення Тренінг-буку натисни кнопку "Оформити замовлення"</p>
+      <button id="buy">Оформити замовлення</button>
     </div>
     <form id="form">
             <input type="text" placeholder="Ім'я, Прізвище" id="user_name">
@@ -104,7 +105,8 @@
             document.getElementById("user_name").value = tg.initDataUnsafe.user.first_name + " " + tg.initDataUnsafe.user.last_name
         });
 
-        order.addEventListener("click", () => {
+        order.addEventListener("click", (event) => {
+            event.preventDefault();
             document.getElementById("error").innerText = '';
             let name = document.getElementById("user_name").value;
             let kurs = document.getElementById("user_kurs").value;
@@ -114,15 +116,15 @@
                 document.getElementById("error").innerText = 'Помилка в імені';
                 return;
             }
-            if(kurs.length < 5) {
+            if(kurs.length < 1) {
                 document.getElementById("error").innerText = 'Помилка в номері курсу';
                 return;
             }
-            if(spec.length < 5) {
+            if(spec.length < 4) {
                 document.getElementById("error").innerText = 'Помилка в назві спеціалізації';
                 return;
             }
-            if(phone.length < 5) {
+            if(phone.length < 10) {
                 document.getElementById("error").innerText = 'Помилка в номері телефону';
                 return;
             }
